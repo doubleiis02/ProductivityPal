@@ -1,0 +1,54 @@
+void setup() {
+    pinMode(8, OUTPUT); //Blue
+    pinMode(10, INPUT); //Sense button
+    pinMode(11, OUTPUT); //Red
+    pinMode(12, OUTPUT); //Green
+    pinMode(A1, INPUT); //Read Photoresistor
+    pinMode(A3, OUTPUT); //Output night light stuffs
+    digitalWrite(8, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(12, HIGH);
+    
+    Serial.begin(9600);
+}
+int numTimes = 0;
+int a = 999;
+int prevA = 999;
+void loop() {
+    //To-do list
+    if (digitalRead(10) == HIGH) {
+        if (numTimes == 0) {
+            digitalWrite(8, LOW);
+            delay(1000);
+        }
+        else if (numTimes == 1) {
+            digitalWrite(11, LOW);
+            delay(1000);
+        }
+        else if (numTimes == 3) {
+            digitalWrite(12, LOW);
+            delay(1000);
+        }
+        numTimes++;
+    }
+    // if new day, reset numTimes to zero, and then turn LED's back on
+
+    //if received notif, then blink a light, mayhaps repurpose todo led's?? have them 
+
+    
+    //Night light functionality
+    prevA = a;
+    a = analogRead(A1);
+    Serial.println(a);
+    if (a > 300) {
+        analogWrite(A3, 0);
+    }
+    else if (a < 200) {
+        analogWrite(A3, 240 - a);
+    }
+
+    //Alarm clock:
+
+    //if 15 min before, start turning on rgb light, cycling thru r-g-b, then activate alarm arr using flashing mosfet, repurpose
+    //pushbutton to turn off, if not, then use fan to wake??
+}

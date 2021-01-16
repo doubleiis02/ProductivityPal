@@ -1,0 +1,14 @@
+#include <HCSR04.h>
+HCSR04 hc(6, new int[2]{5, 9}, 2);
+
+void setup() {
+    Serial.begin(9600);
+}
+
+void loop() {
+    Serial.print(hc.dist(0));
+    Serial.print(" ");
+    Serial.print(hc.dist(1));
+    Serial.println();
+    delay(500);
+}

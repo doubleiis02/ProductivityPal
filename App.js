@@ -1,6 +1,5 @@
 import React from 'react';
 import Providers from './navigation/index';
-import Firebase from "./config/Firebase";
 export default function App() {
   return <Providers />;
 }

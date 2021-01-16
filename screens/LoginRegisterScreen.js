@@ -1,6 +1,8 @@
 import React, {useState, useContext} from "react";
-import { StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { AuthContext } from "../navigation/AuthProvider";
+import FontAwesomeIcons from "react-native-vector-icons/FontAwesome";
+
 
 export default function LoginRegister(props){
 
@@ -13,12 +15,17 @@ export default function LoginRegister(props){
             
     return (
         <View style = {styles.container}>
-            <Text>Log In or Register to ProductivityPal</Text>
+
+        <Text style = {styles.titleText}>Productivity</Text>
+            <FontAwesomeIcons name = "gears" style = {styles.appLogo}/>
+            
 
 
-            <Button 
-            title = "Sign in or register with google"
-            onPress = {handleLogin}/>
+            <TouchableOpacity 
+            onPress = {handleLogin}
+            style= {styles.loginButton}>
+            <Text>Sign In or Register With Google</Text>
+            </TouchableOpacity>
 
 
             
@@ -28,22 +35,30 @@ export default function LoginRegister(props){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      display: "flex",
       backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
       flexDirection: "column"
     },
 
-    register: {
-        display: "flex",
-        flexDirection: "row",
-        width: "70%"
+    titleText: {
+        fontSize: 40
+    },
+    appLogo: {
+        height: 30,
+        width: 30,
+        fontSize: 30,
+        margin:10,
+        backgroundColor: "#FFFFFF"
     },
 
-    registerInput: {
-        borderWidth: 1,
-        borderColor: "black",
-        width: "70%"
+    loginButton: {
+        alignItems: "center",
+        backgroundColor: "#DDDDDD",
+        padding: 20,
+        
+        
     }
   });
 

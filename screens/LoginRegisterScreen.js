@@ -16,7 +16,7 @@ export default function LoginRegister(props){
     return (
         <View style = {styles.container}>
 
-        <Text style = {styles.titleText}>Productivity</Text>
+        <Text style = {styles.titleText}>Productivity Pal</Text>
             <FontAwesomeIcons name = "gears" style = {styles.appLogo}/>
             
 
@@ -46,9 +46,9 @@ const styles = StyleSheet.create({
         fontSize: 40
     },
     appLogo: {
-        height: 30,
-        width: 30,
-        fontSize: 30,
+        height: 120,
+        width: 120,
+        fontSize: 100,
         margin:10,
         backgroundColor: "#FFFFFF"
     },

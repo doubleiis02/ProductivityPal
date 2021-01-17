@@ -1,11 +1,12 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import HomeScreen from "../screens/HomeScreen.js";
-import ActivitiesScreen from "../screens/ActivitiesScreen";
-import HeatmapScreen from "../screens/HeatmapScreen";
+import AddActivityScreen from "../screens/AddActivityScreen";
+import HeatmapStack from "./HeatmapStack";
 import ScheduleScreen from "../screens/ScheduleScreen";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FeatherIcons from "react-native-vector-icons/Feather";
+
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -17,25 +18,13 @@ export default function HomeStack(){
             tabBarLabel= "Home" 
             component = {HomeScreen}
             options={{
-                tabBarLabel: 'Home',
                 tabBarIcon: ({ color }) => (
                   <MaterialIcons name="home" color={color} size={26} />
                 ),
               }}
             />
-            <Tab.Screen 
-            name ="Activities" 
-            tabBarLabel= "Activities" 
-            component = {ActivitiesScreen}
-            options={{
-                tabBarLabel: 'Activities',
-                tabBarIcon: ({ color }) => (
-                  <FeatherIcons name="activity" color={color} size={26} />
-                ),
-              }}/>
             <Tab.Screen name ="Heatmap"
-            tabBarLabel= "Heatmap"
-            component = {HeatmapScreen}
+            component = {HeatmapStack}
             options={{
                 tabBarLabel: 'Heatmap',
                 tabBarIcon: ({ color }) => (
@@ -44,12 +33,21 @@ export default function HomeStack(){
               }}/>
             <Tab.Screen 
             name ="Schedule" 
-            tabBarLabel= "Schedule" 
             component = {ScheduleScreen}
             options={{
-                tabBarLabel: 'Heatmap',
+                tabBarLabel: 'Schedule',
                 tabBarIcon: ({ color }) => (
                   <MaterialIcons name="schedule" color={color} size={26} />
+                ),
+              }}/>
+
+            <Tab.Screen 
+            name ="AddActivity" 
+            component = {AddActivityScreen}
+            options={{
+                tabBarLabel: 'AddActivity',
+                tabBarIcon: ({ color }) => (
+                  <FeatherIcons name="activity" color={color} size={26} />
                 ),
               }}/>
         </Tab.Navigator>

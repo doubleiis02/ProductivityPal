@@ -2,7 +2,7 @@ import React from "react";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import HomeScreen from "../screens/HomeScreen.js";
 import AddActivityScreen from "../screens/AddActivityScreen";
-import HeatmapScreen from "../screens/HeatmapScreen";
+import HeatmapStack from "./HeatmapStack";
 import ScheduleScreen from "../screens/ScheduleScreen";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FeatherIcons from "react-native-vector-icons/Feather";
@@ -24,7 +24,7 @@ export default function HomeStack(){
               }}
             />
             <Tab.Screen name ="Heatmap"
-            component = {HeatmapScreen}
+            component = {HeatmapStack}
             options={{
                 tabBarLabel: 'Heatmap',
                 tabBarIcon: ({ color }) => (

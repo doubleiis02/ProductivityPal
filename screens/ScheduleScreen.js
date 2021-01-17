@@ -15,14 +15,21 @@ export default function ScheduleScreen(props){
             item1: {
                 name: "Mow the Lawn",
                 timeScheduledMilitaryHr: 12,
-                timeScheduledMilitaryMin: 0,
+                timeScheduledMin: 30,
                 completion: false
             },
             item2: {
                 name: "Do the Dishes",
                 timeScheduledMilitaryHr: 12,
-                timeScheduledMin: 0,
+                timeScheduledMin: 30,
                 completion: false
+            },
+
+            item3: {
+                name: "Stretch Break!",
+                timeScheduledMilitaryHr: 11,
+                timeScheduledMin: 45,
+                completion: true
             }
         }
     }
@@ -41,7 +48,7 @@ export default function ScheduleScreen(props){
     }, []);
     
 
-
+    //We would have removed from the field the database stuff 
     // function displaySchedule() {
     //     const arrayData = Object.entries(junkData.scheduled);
     //     arrayData.forEach(([key]) => {
@@ -62,11 +69,11 @@ export default function ScheduleScreen(props){
             contentContainerStyle={styles.scrollView}
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                }>
-                <Text>Daily Scheduled Items</Text>
-                <View>{displayedSchedule}</View>
+                }> 
+                 
+                <Text style = {styles.boldedTitleText}>Daily Scheduled Items</Text>
+                <View style = {{display : "flex", justifyContent: "space-evenly", height: 500 }}>{displayedSchedule}</View>
                 
-                <Text>Pull Down to Refresh List</Text>
 
                 <TouchableOpacity 
                 onPress = {() => props.navigation.navigate("AddActivity")}
@@ -81,14 +88,32 @@ export default function ScheduleScreen(props){
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      marginTop: Constants.statusBarHeight,
-
+      
+        flex: 1,
+        backgroundColor: '#ffedd9',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: "column",
+        textAlign: "center"
+      },
+      titleText: {
+        marginTop: 30,
+        marginBottom: 30,
+        fontSize: 30,
+        textAlign: "center"
+    },
+    boldedTitleText: {
+        marginTop: 30,
+        marginBottom: 30,
+        fontSize: 30,
+        textAlign: "center",
+        fontWeight: "bold"
+        
     },
     scrollView: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         width: "100%"
       },
 
@@ -106,8 +131,8 @@ const styles = StyleSheet.create({
 
     button: {
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
+        backgroundColor: "#b3d0ff",
         padding: 20,
-
+        borderRadius: 20
     }
   });

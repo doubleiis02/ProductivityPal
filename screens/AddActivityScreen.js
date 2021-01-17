@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
-import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput, Alert} from 'react-native';
+import { StyleSheet, Text, View,SafeAreaView, Button, TouchableOpacity, TextInput, Alert} from 'react-native';
 import {AuthContext} from "../navigation/AuthProvider";
-import DateTimePicker from "@react-native-community/datetimepicker";
+
 
 
 export default function AddActivityScreen(props){
@@ -11,7 +11,6 @@ export default function AddActivityScreen(props){
     const [activityName, setActivityName] = useState("Name Your Activity");
     const {user, } = useContext(AuthContext);
 
-
     function handleCreateItem(){
         console.log ("Attempting to create item");
         if (activityName === "Name Your Activity" || activityTimeHour<0 || activityTimeHour>12 || (activityTimeHour%1) != 0 || !(activityTimeHour) 
@@ -20,7 +19,7 @@ export default function AddActivityScreen(props){
             TimeError();
             return;
         }
-        //WRITE TO DATABASE
+        //WRITE TO DATABASE, ran out of time to implement
         setActivityTimeHour(null);
         setActivityTimeMin(null);
         setActivityName("");
@@ -63,12 +62,10 @@ export default function AddActivityScreen(props){
 
 
     return (
-        <View style = {styles.container}>
-
-
-            <Text>Add a scheduled item here</Text>
-            <View style = {styles.register}>
-                <Text>Activity Name:</Text>
+        <SafeAreaView style = {styles.container}>
+            <Text style = {styles.boldedTitleText}>Additional Scheduled Items</Text>
+            <View >
+                <Text style = {styles.titleText}>Activity Name:</Text>
                 <TextInput
                 style = {styles.registerInput}
                 onChangeText= {text=> setActivityName(text)}
@@ -80,17 +77,18 @@ export default function AddActivityScreen(props){
                 
             </View>
 
-            <View style = {styles.timeChoose}>
-                <Text>Designated Time:</Text>
-                <TextInput
-                style = {styles.timeInput}
-                keyboardType = "numeric"
-                maxLength = {12}
-                onChangeText= {text=> setActivityTimeHour(text)}
-                autoCapitalize= "none"
-                autoCorrect= {false}
-                value ={activityTimeHour}
-                />
+            
+                <Text style = {styles.titleText}>Designated Time:</Text>
+                <View style = {styles.timeChoose}>
+                    <TextInput
+                    style = {styles.timeInput}
+                    keyboardType = "numeric"
+                    maxLength = {12}
+                    onChangeText= {text=> setActivityTimeHour(text)}
+                    autoCapitalize= "none"
+                    autoCorrect= {false}
+                    value ={activityTimeHour}
+                    />
                 <Text>:</Text>
 
                 <TextInput
@@ -122,57 +120,89 @@ export default function AddActivityScreen(props){
             style= {styles.button}>
             <Text>Add To Your Schedule</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity 
+                onPress = {() => props.navigation.navigate("Schedule")}
+                style= {styles.moveButton}>
+                <Text>Back to Your Schedule</Text>
+                </TouchableOpacity>
             
             
 
-        </View>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: "column"
+      
+        flex: 1,
+        backgroundColor: '#ffedd9',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: "column",
+        textAlign: "center"
+      },
+
+      titleText: {
+        marginTop: 30,
+        marginBottom: 30,
+        fontSize: 30,
+        textAlign: "center"
+    },
+    boldedTitleText: {
+        marginTop: 30,
+        marginBottom: 30,
+        fontSize: 30,
+        textAlign: "center",
+        fontWeight: "bold"
+        
     },
 
-    register: {
-        display: "flex",
-        flexDirection: "row",
-        width: "70%"
-    },
+
 
     timeChoose: {
         display: "flex",
         flexDirection: "row",
-        width: "70%",
-        justifyContent: "space-evenly"
+        width: "90%",
+        justifyContent: "space-evenly",
+        marginBottom: 40
     },
 
     registerInput: {
         borderWidth: 1,
         borderColor: "black",
-        width: "70%"
+        width: 200,
+        height: "20%",
+        textAlign: "center"
     },
 
     timeInput : {
         width: "10%",
         borderWidth: 1,
         borderColor: "black",
+        textAlign: "center"
     },
 
     button: {
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
+        backgroundColor: "#b3d0ff",
         padding: 20,
+        borderRadius: 20
+    },
+
+    moveButton: {
+        marginTop: 50,
+        alignItems: "center",
+        backgroundColor: "#b3d0ff",
+        padding: 20,
+        borderRadius: 20
     },
 
     smallButton: {
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
-        padding: 5
+        backgroundColor: "#b3d0ff",
+        padding: 5,
     }
 
   });

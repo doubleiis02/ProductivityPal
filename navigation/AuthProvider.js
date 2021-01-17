@@ -6,11 +6,14 @@ import {setProfile} from "../config/Firebase";
 export const AuthContext = createContext({});
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
+    const [establishedWifiConnection, setEstablishedWifiConnection]=useState(false);
     return (
         <AuthContext.Provider
           value={{
             user,
             setUser,
+            establishedWifiConnection,
+            setEstablishedWifiConnection,
             login: async () => {
                 try {
                   const result = await Google.logInAsync({
@@ -37,6 +40,7 @@ export const AuthProvider = ({children}) => {
                 console.error(e);
               }
             }
+            
           }}
         >
           {children}

@@ -4,7 +4,7 @@ import LoginRegisterScreen from "../screens/LoginRegisterScreen";
 export default function AuthStack(props){
     const Stack = createStackNavigator();
     return (
-        <Stack.Navigator initialRouteName = "LoginRegister">
+        <Stack.Navigator initialRouteName = "LoginRegister" >
             <Stack.Screen
                 name = "LoginRegister"
                 component = {LoginRegisterScreen}

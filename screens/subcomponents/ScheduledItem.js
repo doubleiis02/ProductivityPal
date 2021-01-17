@@ -6,19 +6,17 @@ export default function ScheduledItem(props){
     function displayTime(timeScheduled){
         return (
             <View style = {styles.clockDisplay}>
-                <Text> {props.item.timeScheduledMilitaryHr}</Text>
-                <Text>:</Text>
-                <Text>{props.item.timeScheduledMin}</Text>
-                
-                
+                <Text> {props.item.timeScheduledMilitaryHr} : {props.item.timeScheduledMin}</Text>  
             </View>
         )
     }
     return(
-        <View>
+        <View style = {styles.itemContainer}>
             <View style ={styles.itemHeader}>
-                <Text> {props.item.name}</Text>
-                <Text> {displayTime(props.item.timeScheduled)} </Text>
+                <Text style = {styles.boldedText}> {props.item.name}</Text>
+                <Text style = {styles.bodyText}> at {props.item.timeScheduledMilitaryHr}: 
+                {props.item.timeScheduledMin <10 ? ("0" + props.item.timeScheduledMin) : props.item.timeScheduledMin}
+                {props.item.timeScheduledMilitaryHr>11 ? " PM" : " AM"} </Text>
                 <Checkbox 
                 status = {isChecked ? "checked" : "unchecked"}
                 disabled = {true}
@@ -31,23 +29,26 @@ export default function ScheduledItem(props){
 
 
 const styles = StyleSheet.create({
-    item: {
-        width: "80%",
-        height: "20%",
-        textAlign: "left",
-
-    },
-
-    registerInput: {
-        borderWidth: 1,
-        borderColor: "black",
-        width: "70%"
-    },
-
-    button: {
+    itemContainer: {
+        maxWidth: "85%",
+        minWidth: "30%",
+        display: "flex",
+        justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
-        padding: 20,
+        flexDirection: "row",
+        backgroundColor: "#b3d0ff",
+        padding: 10,
+        borderRadius: 10,
+        fontSize: 20
+    },
 
-    }
+    boldedText: {
+        fontWeight: "bold",
+        fontSize: 30
+    },
+    bodyText: {
+        fontSize: 20
+    },
+
+
   });

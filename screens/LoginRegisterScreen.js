@@ -17,13 +17,17 @@ export default function LoginRegister(props){
         <View style = {styles.container}>
 
         <Text style = {styles.titleText}>Productivity Pal</Text>
-            <FontAwesomeIcons name = "gears" style = {styles.appLogo}/>
+
+            <View
+                style= {styles.appLogoContainer}>
+                    <FontAwesomeIcons name = "gears" style = {styles.appLogo}/>
+                </View>
             
 
 
             <TouchableOpacity 
             onPress = {handleLogin}
-            style= {styles.loginButton}>
+            style= {styles.signinButton}>
             <Text>Sign In or Register With Google</Text>
             </TouchableOpacity>
 
@@ -34,31 +38,53 @@ export default function LoginRegister(props){
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      display: "flex",
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'space-evenly',
-      flexDirection: "column"
-    },
+        flex: 1,
+        backgroundColor: '#ffedd9',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        flexDirection: "column"
+      },
 
     titleText: {
-        fontSize: 40
+        fontSize: 40,
+        fontWeight: "bold"
     },
     appLogo: {
         height: 120,
         width: 120,
         fontSize: 100,
         margin:10,
-        backgroundColor: "#FFFFFF"
+
     },
 
-    loginButton: {
+    appLogo: {
+        height: 120,
+        padding: 5,
+        borderRadius: 20,
+        width: 120,
+        fontSize: 100,
+        marginLeft: 25,
+        marginTop: 10
+    },
+    appLogoContainer: {
+        height: 180,
+        width: 180,
+        backgroundColor: "#b3d0ff",
+        borderRadius: 100,
+        display: "flex",
+        justifyContent: "center",
+        alignContent: "center",
+        marginTop: 30,
+    },
+
+    signinButton: {
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
+        backgroundColor: "#b3d0ff",
         padding: 20,
+        borderRadius: 20
         
         
     }
+
   });
 

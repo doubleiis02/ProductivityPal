@@ -18,12 +18,14 @@ export default function AddActivityScreen(props){
         || activityTimeHour === "HR"|| activityTimeMin<0 || activityTimeMin>59 || (activityTimeMin%1) !=0 
         || (activityTimeMin === "MIN") || activityTimeAMPM === "default"){
             TimeError();
-
+            return;
         }
         //WRITE TO DATABASE
         setActivityTimeHour(null);
         setActivityTimeMin(null);
         setActivityName("");
+        SuccesfulAddition();
+
         
     }
     
@@ -38,6 +40,19 @@ export default function AddActivityScreen(props){
                 }
             ]);
     }
+
+    function SuccesfulAddition(){
+        Alert.alert(
+            "Success",
+            "Item Successfully Added To Schedule",
+            [
+                {
+                text: "Ok",
+                onPress: () =>console.log("OK")
+                }
+            ]);
+    }
+
     function handleSelectAM(){
         setActivityTimeAMPM("AM");
     }

@@ -1,7 +1,7 @@
 import React, {useState, useRef} from "react";
 import { PanResponder, StyleSheet, Text, View, Button, TouchableOpacity, Alert } from 'react-native';
 import WebView from "react-native-webview";
-
+import DisplayHeatmap from "./subcomponents/DisplayHeatmap";
 import Heatmap from "react-native-simpleheat";
 
 
@@ -61,20 +61,16 @@ export default function HeatmapScreen(props){
 
         const [gradient, setGradient] = useState({0.4: 'blue', 0.65: 'lime', 1: 'red'});
         
-        const {heatmap} = useRef(null);
+        const {heatmap} = useRef();
+        console.log(heatmap);
         console.log("Heatmap Data:"+ {heatmapData});
 
     return (
         
+        //<DisplayHeatmap/>
         <View style = {styles.container}>
             <Text>This is our Heatmap Screen!</Text>
-            <Heatmap
-            ref={heatmap}
-            WebView = {WebView}
-            data = {heatmapData}
-            gradient = {gradient}
-            alpha = {0.5}
-            />
+            <DisplayHeatmap/>
             
         </View>
     )

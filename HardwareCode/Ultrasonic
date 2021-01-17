@@ -1,14 +1,114 @@
 #include <HCSR04.h>
-HCSR04 hc(6, new int[2]{5, 9}, 2);
+HCSR04 hc(6, new int[3]{5, 9, 10}, 3);
+const float DISTANCE_TRI_VERT = 100;
+const float DISTANCE_TRI_HORIZ = 90;
 
+int baseline = -1;
+int baseline2 = -1;
+int baseline3 = -1;
 void setup() {
     Serial.begin(9600);
 }
 
 void loop() {
-    Serial.print(hc.dist(0));
-    Serial.print(" ");
-    Serial.print(hc.dist(1));
-    Serial.println();
-    delay(500);
+    int distance1 = hc.dist(2);
+    int distance2 = hc.dist(0);
+    int distance3 = hc.dist(1);
+    /*
+    Serial.print(distance1);
+    Serial.print(",");
+    Serial.print(distance2);
+    Serial.print(",");
+    Serial.println(distance3);
+    */
+    if (distance1 < 10 || distance2 < 10 || distance3 < 10 || distance1 > 1000 || distance2 > 1000 || distance3 > 1000) {
+        return;
+    }
+    /*
+    Serial.print(distance1);
+    Serial.print(",");
+    Serial.print(distance2);
+    Serial.print(",");
+    Serial.println(distance3);
+    */
+    int index = 0;
+    float arc1x[100];
+    float arc1y[100];
+    float arc2x[100];
+    float arc2y[100];
+    float arc3x[100];
+    float arc3y[100];
+
+    float increment = PI / 600.0;
+    float angle1 = 75 * PI / 180;
+    float angle2 = 300 * PI / 180.0;
+    float angle3 = 210 * PI / 180.0;
+
+    // Assign array vals
+    for (int i = 0; i < 100; i++) {
+        arc1x[i] = distance1 * cos(angle1);
+        arc1y[i] = distance1 * sin(angle1);
+        angle1 += increment;
+
+        arc2x[i] = distance2 * cos(angle2) - DISTANCE_TRI_HORIZ / 2.0;
+        arc2y[i] = distance2 * sin(angle2) + DISTANCE_TRI_VERT;
+        angle2 += increment;
+
+        arc3x[i] = distance3 * cos(angle3) + DISTANCE_TRI_HORIZ / 2.0;
+        arc3y[i] = distance3 * sin(angle3) + DISTANCE_TRI_VERT;
+        angle3 += increment;
+    }
+
+    float similarX[100];
+    int simXIndex = 0;
+    for (int i = 0; i < 100; i++) {
+        similarX[i] = -999;
+    }
+
+    for (int i = 0; i < 100; i++) {
+        for (int j = 0; j < 100; j++) {
+            if ((arc2x[i] - arc3x[j]) * (arc2x[i] - arc3x[j]) < 1000.0) {
+                similarX[simXIndex++] = (arc2x[i]);
+                break;
+            }
+        }
+    }
+
+    for (int i = 0; i < simXIndex; i++) {
+        for (int j = 0; j < 100; j++) {
+            if ((arc1x[j] - similarX[i]) * (arc1x[j] - similarX[i]) < 1000.0) {
+                break;
+            }
+            else if (j == 99) {
+                similarX[i] = -999;
+            }
+        }
+    }
+
+    float xSum = 0;
+    float ySum = 0;
+    int sumCounter = 0;
+    for (int i = 0; i < simXIndex; i++) {
+        if (similarX[i] == -999) {
+            continue;
+        }
+        else {
+            float y1 = sqrt(abs(distance1 * distance1 - similarX[i] * similarX[i]));
+            float y2 = -1 * sqrt(abs(distance2 * distance2 - (similarX[i] + DISTANCE_TRI_HORIZ / 2.0) * (similarX[i] + DISTANCE_TRI_HORIZ / 2.0)))
+                + DISTANCE_TRI_VERT;
+            float y3 = -1 * sqrt(abs(distance3 * distance3 - (similarX[i] - DISTANCE_TRI_HORIZ / 2.0) * (similarX[i] - DISTANCE_TRI_HORIZ / 2.0)))
+                + DISTANCE_TRI_VERT;
+            if ((y1 - y2) * (y1 - y2) < 1000 && (y1 - y3) * (y1 - y3) < 1000 &&
+                (y2 - y3) * (y2 - y3) < 1000) {
+                    xSum += similarX[i];
+                    ySum += (y1+ y2 + y3) / 3.0;
+                sumCounter++;
+            }
+        }
+    }
+    if (sumCounter != 0) {
+        Serial.print(xSum / sumCounter);
+        Serial.print(" ");
+        Serial.println((ySum / sumCounter));
+    }
 }
